@@ -8,9 +8,9 @@ Download from http://example.com/FIXME.
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar clojure-api-0.1.0-standalone.jar [args]
+```shell
+curl -X POST -H "Content-Type: application/json"  "http://127.0.0.1:3000/people" -d '{"first_name": "Name", "surname": "Surname"}' | jq
+```
 
 ## Options
 

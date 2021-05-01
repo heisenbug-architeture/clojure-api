@@ -11,7 +11,7 @@
   (:gen-class))
 
 (defn simple-body-page
-  []
+  [req]
   {:status  200
    :headers {"Content-Type" "text/html"}
    :body    "Hello World"})
@@ -29,7 +29,7 @@
   (swap! people-collection conj {:firstname (str/capitalize firstname) :surname (str/capitalize surname)}))
 
 (defn people-handler
-  []
+  [req]
   {:status  200
    :headers {"Content-Type" "text/json"}
    :body    @people-collection})

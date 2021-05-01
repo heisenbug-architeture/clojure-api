@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clojure-deployment
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0%
+      maxSurge: 100%
+  selector:
+    matchLabels:
+      app: clojure-api
+  template:
+    metadata:
+      labels:
+        app: clojure-api
+    spec:
+      containers:
+      - name: clojure-api-container
+        image: heisenbugarchiteture/clojure-api:0.0.1
+        ports:
+          - name: http
+            containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /people
+            port: 3000
+          initialDelaySeconds: 0
+          periodSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /people
+            port: 3000
+          initialDelaySeconds: 0
+          periodSeconds: 2

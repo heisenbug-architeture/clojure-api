@@ -11,7 +11,7 @@
   (:gen-class))
 
 (defn simple-body-page
-  [req]
+  []
   {:status  200
    :headers {"Content-Type" "text/html"}
    :body    "Hello World"})
@@ -29,13 +29,13 @@
   (swap! people-collection conj {:firstname (str/capitalize firstname) :surname (str/capitalize surname)}))
 
 (defn people-handler
-  [req]
+  []
   {:status  200
    :headers {"Content-Type" "text/json"}
    :body    @people-collection})
 
-(defn hello-name [req]
-  (print "teste")
+(defn hello-name
+  [req]
   {:status  200
    :headers {"Content-Type" "text/json"}
    :body {:message (str "Hello " (:name (:params req)))}})
@@ -50,10 +50,10 @@
   (GET "/" [] simple-body-page)
   (GET "/request" [] request-example)
   (GET "/hello" [] hello-name)
+  (GET "/people" [] people-handler)
   (POST "/people" req
         (let [first-name (get-in req [:body "first_name"])
               surname (get-in req [:body "surname"])]
-          (println "\n\n\n")
           (addperson-handler first-name surname)))
 
   (route/not-found "Error, page not found!"))

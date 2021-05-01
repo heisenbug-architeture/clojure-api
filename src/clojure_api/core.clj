@@ -64,6 +64,7 @@
       wrap-json-response))
 
 (addperson "Functional" "Human")
+(addperson "1" "Android")
 (addperson "Micky" "Mouse")
 
 (defn -main
